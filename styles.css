@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background: #f4f4f,4;
+    background: #f4f4f4;
 }
 
 .container {
@@ -15,6 +15,12 @@ body {
     background: white;
     width: 320px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
 }
 
 #logo {
@@ -45,13 +51,29 @@ button {
     margin-top: 10px;
 }
 
-#developed, #glory {
-    color: #25D366;
-    margin-top: 20px;
+#developed {
+    color: #25D366; /* Verde padrão */
+    margin-bottom: 10px; /* Espaço entre texto e ícones sociais */
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaço entre ícones */
+    font-size: 16px; /* Ícones menores */
+    color: #aaa; /* Cor tipo marca d'água */
+    margin-bottom: 10px; /* Espaço antes de "A DEUS toda a Glória!" */
+}
+
+#credits a, .social-links a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 24px;
 }
 
 #glory {
-    color: #b0b0b0;
     text-align: right;
     width: 100%;
+    color: #b0b0b0; /* Cinza */
+    font-size: 12px; /* Discreto e visível */
 }
