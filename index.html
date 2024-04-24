@@ -88,42 +88,43 @@
             <p id="glory">A DEUS toda a Glória!</p>
         </footer>
     </div>
-    <script>
-        function trackSocialClick(serviceName) {
-            gtag('event', 'click', {
-                'event_category': 'Social Media',
-                'event_label': serviceName
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var phoneNumberInput = document.querySelector('#phoneNumber');
-            intlTelInput(phoneNumberInput, {
-                initialCountry: 'br',
-                preferredCountries: ['br', 'us'],
-                separateDialCode: true,
-                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
-            });
-
-            window.openWhatsApp = function() {
-                var message = encodeURIComponent(document.querySelector('#messageText').value);
-                var phoneNumber = phoneNumberInput.value.replace(/\D/g,'');
-                if (phoneNumber) {
-                    var url = `https://wa.me/${phoneNumber}`;
-                    if (message) {
-                        url += `?text=${message}`;
-                    }
-                    window.open(url, '_blank');
-                    gtag('event', 'click', {
-                        'event_category': 'WhatsApp Chat',
-                        'event_label': 'Initiate Chat',
-                        'value': phoneNumber
-                    });
-                } else {
-                    alert('Please enter a phone number.');
-                }
-            }
+<script>
+    function trackSocialClick(serviceName) {
+        gtag('event', 'click', {
+            'event_category': 'Social Media',
+            'event_label': serviceName
         });
-    </script>
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var phoneNumberInput = document.querySelector('#phoneNumber');
+        intlTelInput(phoneNumberInput, {
+            initialCountry: 'br',
+            preferredCountries: ['br', 'us'],
+            separateDialCode: true,
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+        });
+
+        window.openWhatsApp = function() {
+            var message = encodeURIComponent(document.querySelector('#messageText').value);
+            var phoneNumber = phoneNumberInput.value.replace(/\D/g,''); // remove non-digits
+            if (phoneNumber) {
+                phoneNumber = phoneNumber.startsWith('55') ? '+' + phoneNumber : phoneNumber; // Ensure correct country code
+                var url = `https://wa.me/${phoneNumber}`;
+                if (message) {
+                    url += `?text=${message}`;
+                }
+                window.open(url, '_blank');
+                gtag('event', 'click', {
+                    'event_category': 'WhatsApp Chat',
+                    'event_label': 'Initiate Chat',
+                    'value': phoneNumber
+                });
+            } else {
+                alert('Please enter a phone number.');
+            }
+        }
+    });
+</script>
 </body>
 </html>
