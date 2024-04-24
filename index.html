@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What's Go APP</title>
-    <meta name="description" content="What's Go APP - Simples e Funcional">
+    <meta name="description" content="What's Go APP - Acesse facilmente seu APP de mensagens.">
     <meta name="keywords" content="What's Go, Inovação MAB, WhatsApp, Comunicação, Simples, Funcional">
     <meta name="author" content="Inovação MAB">
     <meta property="og:title" content="What's Go APP"/>
@@ -27,11 +27,43 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6742040663921517"
      crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="iconezinho.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 15px; /* Ajuste de padding para garantir espaço */
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Ajuste para alinhamento ao topo */
+        }
+        .container {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: white;
+            width: 100%; /* Use 100% da largura disponível */
+            max-width: 600px; /* Limita a largura máxima */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden; /* Garante que todo conteúdo seja mantido dentro */
+        }
+        header, footer {
+            margin-top: 20px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 20px; /* Tamanho dos ícones */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <img src="iconeprincipal.jpg" alt="What's Go Logo" id="logo">
-        <h1 id="appName">What's Go</h1>
+        <header>
+            <img src="iconeprincipal.jpg" alt="What's Go Logo" id="logo" style="max-width: 100%; height: auto;">
+            <h1 id="appName">What's Go</h1>
+        </header>
         <input type="tel" id="phoneNumber" placeholder="(xx) xxxxx-xxxx">
         <textarea id="messageText" placeholder="Digite sua mensagem aqui..."></textarea>
         <button onclick="openWhatsApp()">Iniciar Chat</button>
@@ -48,10 +80,10 @@
         <footer>
             <p id="developed">Desenvolvido por Inovação MAB <br>com <a href="https://simpli.chat" target="_blank"><i class="fas fa-comments"></i> Simpli.chat</a></p>
             <div class="social-links">
-                <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')" title="Siga nossa bio!"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')" title="Se inscreva agora mesmo!"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')" title="Siga nossa page!"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')" title="Participe do Canal!"><i class="fab fa-whatsapp"></i></a>
             </div>
             <p id="glory">A DEUS toda a Glória!</p>
         </footer>
