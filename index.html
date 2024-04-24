@@ -27,43 +27,11 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6742040663921517"
      crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="iconezinho.ico">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 15px; /* Ajuste de padding para garantir espaço */
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Ajuste para alinhamento ao topo */
-        }
-        .container {
-            text-align: center;
-            border: 1px solid #ddd;
-            padding: 20px;
-            background: white;
-            width: 100%; /* Use 100% da largura disponível */
-            max-width: 600px; /* Limita a largura máxima */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden; /* Garante que todo conteúdo seja mantido dentro */
-        }
-        header, footer {
-            margin-top: 20px;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            font-size: 20px; /* Tamanho dos ícones */
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <img src="iconeprincipal.jpg" alt="What's Go Logo" id="logo" style="max-width: 100%; height: auto;">
-            <h1 id="appName">What's Go</h1>
-        </header>
+        <img src="iconeprincipal.jpg" alt="What's Go Logo" id="logo">
+        <h1 id="appName">What's Go</h1>
         <input type="tel" id="phoneNumber" placeholder="(xx) xxxxx-xxxx">
         <textarea id="messageText" placeholder="Digite sua mensagem aqui..."></textarea>
         <button onclick="openWhatsApp()">Iniciar Chat</button>
@@ -88,43 +56,43 @@
             <p id="glory">A DEUS toda a Glória!</p>
         </footer>
     </div>
-<script>
-    function trackSocialClick(serviceName) {
-        gtag('event', 'click', {
-            'event_category': 'Social Media',
-            'event_label': serviceName
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var phoneNumberInput = document.querySelector('#phoneNumber');
-        intlTelInput(phoneNumberInput, {
-            initialCountry: 'br',
-            preferredCountries: ['br', 'us'],
-            separateDialCode: true,
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
-        });
-
-        window.openWhatsApp = function() {
-            var message = encodeURIComponent(document.querySelector('#messageText').value);
-            var phoneNumber = phoneNumberInput.value.replace(/\D/g,''); // remove non-digits
-            if (phoneNumber) {
-                phoneNumber = phoneNumber.startsWith('55') ? '+' + phoneNumber : phoneNumber; // Ensure correct country code
-                var url = `https://wa.me/${phoneNumber}`;
-                if (message) {
-                    url += `?text=${message}`;
-                }
-                window.open(url, '_blank');
-                gtag('event', 'click', {
-                    'event_category': 'WhatsApp Chat',
-                    'event_label': 'Initiate Chat',
-                    'value': phoneNumber
-                });
-            } else {
-                alert('Please enter a phone number.');
-            }
+    <script>
+        function trackSocialClick(serviceName) {
+            gtag('event', 'click', {
+                'event_category': 'Social Media',
+                'event_label': serviceName
+            });
         }
-    });
-</script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var phoneNumberInput = document.querySelector('#phoneNumber');
+            intlTelInput(phoneNumberInput, {
+                initialCountry: 'br',
+                preferredCountries: ['br', 'us'],
+                separateDialCode: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+            });
+
+            window.openWhatsApp = function() {
+                var message = encodeURIComponent(document.querySelector('#messageText').value);
+                var phoneNumber = phoneNumberInput.value.replace(/\D/g,'');
+                phoneNumber = phoneNumber.startsWith('55') ? '+' + phoneNumber : '+55' + phoneNumber; // Ensure correct formatting
+                if (phoneNumber) {
+                    var url = `https://wa.me/${phoneNumber}`;
+                    if (message) {
+                        url += `?text=${message}`;
+                    }
+                    window.open(url, '_blank');
+                    gtag('event', 'click', {
+                        'event_category': 'WhatsApp Chat',
+                        'event_label': 'Initiate Chat',
+                        'value': phoneNumber
+                    });
+                } else {
+                    alert('Please enter a phone number.');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
