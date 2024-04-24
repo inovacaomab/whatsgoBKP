@@ -41,18 +41,26 @@
         <footer>
             <p id="developed">Desenvolvido por Inovação MAB <br>com <a href="https://simpli.chat" target="_blank"><i class="fas fa-comments"></i> Simpli.chat</a></p>
             <div class="social-links">
-                <a href="https://www.instagram.com/whats_go_app" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@whatsgoapp" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')"><i class="fab fa-whatsapp"></i></a>
             </div>
             <p id="glory">A DEUS toda a Glória!</p>
         </footer>
     </div>
     <script>
+
+        function trackSocialClick(serviceName) {
+            gtag('event', 'click', {
+                'event_category': 'Social Media',
+                'event_label': serviceName
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
-            var input = document.querySelector('#phoneNumber');
-            intlTelInput(input, {
+            var phoneNumberInput = document.querySelector('#phoneNumber');
+            intlTelInput(phoneNumberInput, {
                 initialCountry: 'br',
                 preferredCountries: ['br', 'us'],
                 separateDialCode: true,
@@ -60,19 +68,19 @@
             });
 
             window.openWhatsApp = function() {
-                var phoneNumber = intlTelInputGlobals.getInstance(input).getNumber();
                 var message = encodeURIComponent(document.querySelector('#messageText').value);
+                var phoneNumber = phoneNumberInput.value.replace(/\D/g,'');
                 if (phoneNumber) {
-                    var url = `https://wa.me/${phoneNumber.replace(/\D/g, '')}`;
+                    var url = `https://wa.me/${phoneNumber}`;
                     if (message) {
                         url += `?text=${message}`;
                     }
+                    window.open(url, '_blank');
                     gtag('event', 'click', {
                         'event_category': 'WhatsApp Chat',
                         'event_label': 'Initiate Chat',
                         'value': phoneNumber
                     });
-                    window.open(url, '_blank');
                 } else {
                     alert('Please enter a phone number.');
                 }
