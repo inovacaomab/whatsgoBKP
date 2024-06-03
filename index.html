@@ -10,7 +10,7 @@
     <meta property="og:title" content="What's Go APP"/>
     <meta property="og:description" content="Simplifique o acesso ao seu app de mensagens com What's Go!"/>
     <meta property="og:image" content="https://example.com/thumbnail.jpg"/>
-    <meta property="og:url" content="https://www.inovacaomab.com/whatsgoapp">
+    <meta property="og:url" content="https://www.inovacaomab.com/whatsgoapp"/>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -46,17 +46,17 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
         <footer>
-            <p id="developed">Desenvolvido por Inovação MAB <br>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')" title="Siga nossa bio!"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')" title="Se inscreva agora mesmo!"><i class="fab fa-youtube"></i></a>
-                    <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')" title="Siga nossa page!"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')" title="Participe do Canal!"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://play.google.com/store/apps/details?id=com.inovacaomab.whatsgo" target="_blank" onclick="trackSocialClick('Instale o APP da Play Store')" title="Instale o APP da Play Store!"><i class="fab fa-googleplay"></i></a>
-                </div>
-            </p>
-            <p id="glory">A DEUS toda a Glória!</p>
-        </footer>
+  <p id="developed">Desenvolvido por Inovação MAB <br>
+    <div class="social-links">
+      <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')" title="Siga nossa bio!"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')" title="Se inscreva agora mesmo!"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')" title="Siga nossa page!"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')" title="Participe do Canal!"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://play.google.com/store/apps/details?id=com.inovacaomab.whatsgo" target="_blank" onclick="trackSocialClick('Instale o APP da Play Store')" title="Instale o APP da Play Store!"><i class="fab fa-googleplay"></i></a>
+    </div>
+  </p>
+  <p id="glory">A DEUS toda a Glória!</p>
+</footer>
     </div>
     <script>
         function trackSocialClick(serviceName) {
@@ -68,7 +68,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             var phoneNumberInput = document.querySelector('#phoneNumber');
-            window.intlTelInput(phoneNumberInput, {
+            intlTelInput(phoneNumberInput, {
                 initialCountry: 'br',
                 preferredCountries: ['br', 'us'],
                 separateDialCode: true,
@@ -91,7 +91,7 @@
                         'value': phoneNumber
                     });
                 } else {
-                    alert('Por favor, insira um número de telefone.');
+                    alert('Please enter a phone number.');
                 }
             }
         });
