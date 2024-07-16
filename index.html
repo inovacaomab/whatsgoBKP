@@ -51,7 +51,7 @@
                     <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')" title="Siga nossa bio!"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')" title="Se inscreva agora mesmo!"><i class="fab fa-youtube"></i></a>
                     <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')" title="Siga nossa page!"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')" title="Participe do Canal!"><i class="fab fa-whatsapp"></i></a> <BR>
+                    <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')" title="Participe do Canal!"><i class="fab fa-whatsapp"></i></a> <br>
                     <a href="https://play.google.com/store/apps/details?id=com.inovacaomab.whatsgo" target="_blank" onclick="trackSocialClick('Instale o APP da Play Store')" title="Instale o APP para ANDROID!"><i class="fab fa-google-play"></i></a>
                 </div>
             </p>
@@ -68,7 +68,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             var phoneNumberInput = document.querySelector('#phoneNumber');
-            window.intlTelInput(phoneNumberInput, {
+            var iti = window.intlTelInput(phoneNumberInput, {
                 initialCountry: 'br',
                 preferredCountries: ['br', 'us'],
                 separateDialCode: true,
@@ -78,7 +78,9 @@
             window.openWhatsApp = function() {
                 var message = encodeURIComponent(document.querySelector('#messageText').value);
                 var phoneNumber = phoneNumberInput.value.replace(/\D/g,'');
-                phoneNumber = phoneNumber.startsWith('55') ? '+' + phoneNumber : '+55' + phoneNumber; // Ensure correct formatting
+                var countryData = iti.getSelectedCountryData();
+                var dialCode = countryData.dialCode;
+                phoneNumber = '+' + dialCode + phoneNumber;
                 if (phoneNumber) {
                     var url = `https://wa.me/${phoneNumber}`;
                     if (message) {
