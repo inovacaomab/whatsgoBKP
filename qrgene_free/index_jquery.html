@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inovação MAB - QR CODE Gratuito</title>
+    <title>Inovação MAB - QR CODE Generator Free</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -153,16 +153,16 @@
     </style>
 </head>
 <body>
-    <h1>Inovação MAB - QR CODE Gratuito</h1>
+    <h1>Inovação MAB - QR CODE Generator Free</h1>
     <div class="tool-container">
         <h1>Crie seu QR Code aqui</h1>
         <div class="input-section">
-            <input type="text" id="url" placeholder="Digite ou Cole seu LINK aqui">
+            <input type="text" id="url" placeholder="Digite o URL aqui">
             <span class="clear-input" onclick="$('#url').val(''); $(this).hide();">x</span>
             <button id="generateButton">Gerar QR Code</button>
         </div>
         <div class="qrcode-section">
-            <div id="qrcode" onclick="baixarQRCode()"></div>
+            <div id="qrcode"></div>
             <i class="fas fa-share-alt share-icon" id="shareIcon" onclick="compartilharQRCode()"></i>
             <button id="clearButton">Apagar e Gerar Novo</button>
         </div>
@@ -201,11 +201,12 @@
             var url = $('#url').val();
             if (url) {
                 limparQRCode();
-                new QRCode(document.getElementById("qrcode"), {
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
                     text: url,
                     width: 128,
                     height: 128
                 });
+
                 $('#clearButton').show();
                 $('#shareIcon').show();
             } else {
@@ -220,40 +221,36 @@
         }
 
         function compartilharQRCode() {
-            var qrcodeElement = document.getElementById("qrcode").getElementsByTagName("img")[0];
-            if (qrcodeElement) {
-                var qrcodeURL = qrcodeElement.src;
-                fetch(qrcodeURL)
-                    .then(res => res.blob())
-                    .then(blob => {
-                        var file = new File([blob], "qrcode.png", { type: "image/png" });
-                        if (navigator.share) {
-                            navigator.share({
-                                title: 'QR Code',
-                                text: 'Aqui está o QR Code gerado:',
-                                files: [file]
-                            }).then(() => {
-                                console.log('Compartilhamento bem-sucedido');
-                            }).catch((error) => {
-                                console.error('Erro ao compartilhar', error);
-                            });
-                        } else {
-                            alert('Compartilhamento não suportado. Você pode baixar a imagem.');
-                        }
-                    });
+            var canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                canvas.toBlob(function(blob) {
+                    var file = new File([blob], "qrcode.png", { type: "image/png" });
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'QR Code',
+                            text: 'Aqui está o QR Code gerado:',
+                            files: [file]
+                        }).then(() => {
+                            console.log('Compartilhamento bem-sucedido');
+                        }).catch((error) => {
+                            console.error('Erro ao compartilhar', error);
+                        });
+                    } else {
+                        alert('Compartilhamento não suportado. Você pode baixar a imagem.');
+                    }
+                });
             }
         }
 
         function baixarQRCode() {
-            var qrcodeElement = document.getElementById("qrcode").getElementsByTagName("img")[0];
-            if (qrcodeElement) {
-                var qrcodeURL = qrcodeElement.src;
-                var a = document.createElement('a');
-                a.href = qrcodeURL;
-                a.download = 'qrcode.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+            var canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'qrcode.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             }
         }
     </script>
