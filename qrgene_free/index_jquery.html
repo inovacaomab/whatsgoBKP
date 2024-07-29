@@ -204,7 +204,8 @@
                         console.error('Erro ao compartilhar', error);
                     });
                 } else {
-                    alert('Compartilhamento não suportado neste navegador.');
+                    // Abrir o QR Code em uma nova aba para compartilhamento manual
+                    window.open(qrcodeURL, '_blank');
                 }
             }
         }
