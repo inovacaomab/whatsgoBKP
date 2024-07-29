@@ -226,15 +226,36 @@
                         console.error('Erro ao compartilhar', error);
                     });
                 } else {
-                    // Criar um link de download para o QR Code
-                    var link = document.createElement('a');
-                    link.href = qrcodeURL;
-                    link.download = 'QRCode.png';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    // Fallback para navegadores que não suportam a API de compartilhamento
+                    try {
+                        const imgBlob = base64ToBlob(qrcodeURL, 'image/png');
+                        const data = [new ClipboardItem({ 'image/png': imgBlob })];
+                        navigator.clipboard.write(data).then(() => {
+                            alert('QR Code copiado para a área de transferência. Cole onde desejar.');
+                        });
+                    } catch (error) {
+                        alert('Navegador não suporta compartilhamento. Abra o QR Code em uma nova aba para compartilhar manualmente.');
+                        window.open(qrcodeURL, '_blank');
+                    }
                 }
             }
+        }
+
+        function base64ToBlob(base64, mime) {
+            const byteCharacters = atob(base64.split(',')[1]);
+            const byteArrays = [];
+
+            for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                const slice = byteCharacters.slice(offset, offset + 512);
+                const byteNumbers = new Array(slice.length);
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                byteArrays.push(byteArray);
+            }
+
+            return new Blob(byteArrays, { type: mime });
         }
     </script>
     <a href="https://www.inovacaomab.com" class="home-button">Voltar ao What's Go</a>
