@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inovação MAB - QR CODE Generator Free</title>
+    <title>Inovação MAB - QR CODE Gratuito</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -17,7 +17,6 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
-            overflow-x: hidden;
         }
         .tool-container {
             background-color: #fff;
@@ -104,8 +103,8 @@
         }
         .share-icon {
             position: absolute;
-            top: 0;
-            right: -30px;
+            top: 10px;
+            right: 10px;
             font-size: 24px;
             color: #007bff;
             cursor: pointer;
@@ -150,11 +149,11 @@
     </style>
 </head>
 <body>
-    <h1>Inovação MAB - QR CODE Generator Free</h1>
+    <h1>Inovação MAB - QR CODE Gratuito</h1>
     <div class="tool-container">
         <h1>Crie seu QR Code aqui</h1>
         <div class="input-section">
-            <input type="text" id="url" placeholder="Digite o URL aqui">
+            <input type="text" id="url" placeholder="Digite ou Cole seu LINK aqui">
             <span class="clear-input" onclick="$('#url').val(''); $(this).hide();">x</span>
             <button id="generateButton">Gerar QR Code</button>
         </div>
