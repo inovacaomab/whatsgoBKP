@@ -120,7 +120,7 @@
         footer a:hover {
             text-decoration: underline;
         }
-		.bottom-icons {
+        .bottom-icons {
             border: 2px solid black; /* Define a largura, estilo e cor da borda */
             padding: 10px; /* Adiciona um pouco de espaço interno */
             border-color: blue; /* Altera a cor da borda para azul */
@@ -226,8 +226,13 @@
                         console.error('Erro ao compartilhar', error);
                     });
                 } else {
-                    // Abrir o QR Code em uma nova aba para compartilhamento manual
-                    window.open(qrcodeURL, '_blank');
+                    // Criar um link de download para o QR Code
+                    var link = document.createElement('a');
+                    link.href = qrcodeURL;
+                    link.download = 'QRCode.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 }
             }
         }
