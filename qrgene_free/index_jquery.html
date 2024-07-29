@@ -17,7 +17,7 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
-            overflow-x: hidden; /* Evita o estouro horizontal */
+            overflow-x: hidden;
         }
         .tool-container {
             background-color: #fff;
@@ -28,7 +28,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 90%; /* Ajusta a largura para caber em telas menores */
+            width: 90%;
             max-width: 400px;
         }
         .tool-container h1 {
@@ -51,7 +51,7 @@
             width: 100%;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; /* Garantir que o padding não estoure o input */
+            box-sizing: border-box;
         }
         .input-section .clear-input {
             position: absolute;
@@ -75,7 +75,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            box-sizing: border-box; /* Garantir que o padding não estoure o botão */
+            box-sizing: border-box;
         }
         .input-section button:hover {
             background-color: darkgreen;
@@ -85,7 +85,7 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 100%; /* Ajusta a largura para caber em telas menores */
+            width: 100%;
         }
         .qrcode-section button {
             margin-top: 10px;
@@ -96,8 +96,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            display: none; /* Inicialmente escondido */
-            box-sizing: border-box; /* Garantir que o padding não estoure o botão */
+            display: none;
+            box-sizing: border-box;
         }
         .qrcode-section button:hover {
             background-color: #c82333;
@@ -109,7 +109,7 @@
             font-size: 24px;
             color: #007bff;
             cursor: pointer;
-            display: none; /* Inicialmente escondido */
+            display: none;
         }
         .share-icon:hover {
             color: #0056b3;
@@ -128,9 +128,9 @@
             text-decoration: underline;
         }
         .bottom-icons {
-            border: 2px solid black; /* Define a largura, estilo e cor da borda */
-            padding: 10px; /* Adiciona um pouco de espaço interno */
-            border-color: blue; /* Altera a cor da borda para azul */
+            border: 2px solid black;
+            padding: 10px;
+            border-color: blue;
         }
         .home-button {
             position: fixed;
@@ -197,14 +197,14 @@
         function gerarQRCode() {
             var url = $('#url').val();
             if (url) {
-                limparQRCode(); // Limpar QR Code anterior
-                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                limparQRCode();
+                new QRCode(document.getElementById("qrcode"), {
                     text: url,
                     width: 128,
                     height: 128
                 });
-                $('#clearButton').show(); // Mostrar o botão
-                $('#shareIcon').show(); // Mostrar o ícone de compartilhamento
+                $('#clearButton').show();
+                $('#shareIcon').show();
             } else {
                 alert("Por favor, insira um URL válido.");
             }
@@ -212,8 +212,8 @@
 
         function limparQRCode() {
             $('#qrcode').empty();
-            $('#clearButton').hide(); // Esconder o botão
-            $('#shareIcon').hide(); // Esconder o ícone de compartilhamento
+            $('#clearButton').hide();
+            $('#shareIcon').hide();
         }
 
         function compartilharQRCode() {
@@ -235,14 +235,18 @@
                                 console.error('Erro ao compartilhar', error);
                             });
                         } else {
-                            navigator.clipboard.write([new ClipboardItem({ 'image/png': file })])
-                                .then(() => {
-                                    alert('QR Code copiado para a área de transferência. Você pode colá-lo em qualquer aplicativo de mensagem.');
-                                })
-                                .catch(err => {
-                                    console.error('Erro ao copiar para a área de transferência', err);
-                                    window.open(qrcodeURL, '_blank');
-                                });
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                var dataUrl = reader.result;
+                                var a = document.createElement('a');
+                                a.href = dataUrl;
+                                a.download = 'qrcode.png';
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                                alert('QR Code salvo como imagem. Você pode compartilhá-lo manualmente.');
+                            };
+                            reader.readAsDataURL(file);
                         }
                     });
             }
