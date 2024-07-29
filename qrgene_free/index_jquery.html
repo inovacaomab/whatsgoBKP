@@ -145,7 +145,7 @@
     </style>
 </head>
 <body>
-    <h1>Inovação MAB - QR CODE Generator Free</h2><BR><BR>
+    <h1>Inovação MAB - QR CODE Generator Free</h1>
     <div class="tool-container">
         <h1>Crie seu QR Code aqui</h1>
         <div class="input-section">
@@ -193,7 +193,7 @@
             var url = $('#url').val();
             if (url) {
                 limparQRCode(); // Limpar QR Code anterior
-                new QRCode(document.getElementById("qrcode"), {
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
                     text: url,
                     width: 128,
                     height: 128
@@ -216,46 +216,25 @@
             if (qrcodeElement) {
                 var qrcodeURL = qrcodeElement.src;
                 if (navigator.share) {
-                    navigator.share({
-                        title: 'QR Code',
-                        text: 'Aqui está o QR Code gerado:',
-                        url: qrcodeURL
-                    }).then(() => {
-                        console.log('Compartilhamento bem-sucedido');
-                    }).catch((error) => {
-                        console.error('Erro ao compartilhar', error);
-                    });
-                } else {
-                    // Fallback para navegadores que não suportam a API de compartilhamento
-                    try {
-                        const imgBlob = base64ToBlob(qrcodeURL, 'image/png');
-                        const data = [new ClipboardItem({ 'image/png': imgBlob })];
-                        navigator.clipboard.write(data).then(() => {
-                            alert('QR Code copiado para a área de transferência. Cole onde desejar.');
+                    fetch(qrcodeURL)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            var file = new File([blob], "qrcode.png", { type: "image/png" });
+                            navigator.share({
+                                title: 'QR Code',
+                                text: 'Aqui está o QR Code gerado:',
+                                files: [file]
+                            }).then(() => {
+                                console.log('Compartilhamento bem-sucedido');
+                            }).catch((error) => {
+                                console.error('Erro ao compartilhar', error);
+                            });
                         });
-                    } catch (error) {
-                        alert('Navegador não suporta compartilhamento. Abra o QR Code em uma nova aba para compartilhar manualmente.');
-                        window.open(qrcodeURL, '_blank');
-                    }
+                } else {
+                    // Abrir o QR Code em uma nova aba para compartilhamento manual
+                    window.open(qrcodeURL, '_blank');
                 }
             }
-        }
-
-        function base64ToBlob(base64, mime) {
-            const byteCharacters = atob(base64.split(',')[1]);
-            const byteArrays = [];
-
-            for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-                const slice = byteCharacters.slice(offset, offset + 512);
-                const byteNumbers = new Array(slice.length);
-                for (let i = 0; i < slice.length; i++) {
-                    byteNumbers[i] = slice.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                byteArrays.push(byteArray);
-            }
-
-            return new Blob(byteArrays, { type: mime });
         }
     </script>
     <a href="https://www.inovacaomab.com" class="home-button">Voltar ao What's Go</a>
