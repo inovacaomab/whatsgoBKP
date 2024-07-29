@@ -55,7 +55,11 @@ button {
     color: #25D366; /* Verde padrão */
     margin-bottom: 10px; /* Espaço entre texto e ícones sociais */
 }
-
+.bottom-icons {
+        border: 2px solid black; /* Define a largura, estilo e cor da borda */
+		border-color: #25D366; /* Verde padrão */
+        padding: 10px; /* Adiciona um pouco de espaço interno */
+    }
 .social-links {
     display: flex;
     justify-content: center;
