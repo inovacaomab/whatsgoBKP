@@ -201,14 +201,14 @@
             var url = $('#url').val();
             if (url) {
                 limparQRCode();
-                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                new QRCode(document.getElementById("qrcode"), {
                     text: url,
                     width: 128,
                     height: 128
                 });
-
                 $('#clearButton').show();
                 $('#shareIcon').show();
+                $('#downloadLink').show();
             } else {
                 alert("Por favor, insira um URL válido.");
             }
@@ -218,28 +218,7 @@
             $('#qrcode').empty();
             $('#clearButton').hide();
             $('#shareIcon').hide();
-        }
-
-        function compartilharQRCode() {
-            var canvas = document.querySelector('#qrcode canvas');
-            if (canvas) {
-                canvas.toBlob(function(blob) {
-                    var file = new File([blob], "qrcode.png", { type: "image/png" });
-                    if (navigator.share) {
-                        navigator.share({
-                            title: 'QR Code',
-                            text: 'Aqui está o QR Code gerado:',
-                            files: [file]
-                        }).then(() => {
-                            console.log('Compartilhamento bem-sucedido');
-                        }).catch((error) => {
-                            console.error('Erro ao compartilhar', error);
-                        });
-                    } else {
-                        alert('Compartilhamento não suportado. Você pode baixar a imagem.');
-                    }
-                });
-            }
+            $('#downloadLink').hide();
         }
 
         function baixarQRCode() {
@@ -248,12 +227,10 @@
                 var link = document.createElement('a');
                 link.href = canvas.toDataURL('image/png');
                 link.download = 'qrcode.png';
-                document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link);
             }
         }
     </script>
-    <a href="https://www.inovacaomab.com" class="home-button">Voltar ao What's Go</a>
+    <a id="downloadLink" href="#" onclick="baixarQRCode()" style="display:none;">Baixar QR Code</a>
 </body>
 </html>
