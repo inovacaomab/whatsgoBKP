@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"> <!-- O atributo lang será atualizado via JavaScript -->
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,23 +23,54 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6742040663921517" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/x-icon" href="iconezinho.ico">
+    
+    <style>
+        /* Estilo para o seletor de idioma */
+        .language-selector {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        #languageSelect {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        #languageSelect:hover {
+            border-color: #999;
+        }
+        
+        /* Mantém os estilos existentes do seu site e apenas ajusta o container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
-    <!-- Seletor de idioma -->
-    <div class="language-selector">
-        <select id="languageSelect" onchange="changeLanguage(this.value)">
-            <option value="pt-BR">Português</option>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-        </select>
-    </div>
-
     <div class="container">
         <img src="iconeprincipal.jpg" alt="What's Go Logo" id="logo">
         <h1 id="appName">What's Go</h1>
         <input type="tel" id="phoneNumber" data-i18n-placeholder="phonePlaceholder">
         <textarea id="messageText" data-i18n-placeholder="messagePlaceholder"></textarea>
         <button onclick="openWhatsApp()" data-i18n="startChat">Iniciar Chat</button>
+
+        <!-- Seletor de idioma movido para depois do botão -->
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="pt-BR">Português</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
 
         <footer>
             <p id="developed">
