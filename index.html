@@ -307,41 +307,112 @@
             }
         };
 
-        function isRTLLanguage(lang) {
-            return lang === 'he' || lang === 'ar';
+        // Função para detectar o idioma do navegador
+        function detectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const shortLang = browserLang.split('-')[0];
+            
+            // Verifica se temos suporte para o idioma detectado
+            if (translations[browserLang]) {
+                return browserLang;
+            } else if (translations[shortLang]) {
+                return shortLang;
+            }
+            
+            return 'pt-BR'; // Idioma padrão
         }
 
+        // Função para atualizar todos os textos da página
         function updatePageLanguage(lang) {
             document.documentElement.lang = lang;
-            document.documentElement.dir = isRTLLanguage(lang) ? 'rtl' : 'ltr';
             const texts = translations[lang];
+
+            // Atualiza meta tags
             document.title = texts.pageTitle;
             document.querySelector('meta[name="description"]').content = texts.metaDescription;
+            document.querySelector('meta[property="og:title"]').content = texts.ogTitle;
+            document.querySelector('meta[property="og:description"]').content = texts.ogDescription;
+
+            // Atualiza placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-                element.placeholder = texts[element.getAttribute('data-i18n-placeholder')];
+                const key = element.getAttribute('data-i18n-placeholder');
+                element.placeholder = texts[key];
             });
+
+            // Atualiza textos
             document.querySelectorAll('[data-i18n]').forEach(element => {
-                element.textContent = texts[element.getAttribute('data-i18n')];
+                const key = element.getAttribute('data-i18n');
+                element.textContent = texts[key];
+            });
+
+            // Atualiza títulos
+            document.querySelectorAll('[data-i18n-title]').forEach(element => {
+                const key = element.getAttribute('data-i18n-title');
+                element.title = texts[key];
             });
         }
 
+        // Função para mudar o idioma
         function changeLanguage(lang) {
             updatePageLanguage(lang);
             localStorage.setItem('preferredLanguage', lang);
         }
 
-        function openWhatsApp() {
-            const cleanPhone = iti.getNumber().replace(/\D/g, '');
-            const message = document.getElementById('messageText').value;
-            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
+        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            const savedLanguage = localStorage.getItem('preferredLanguage') || 'pt-BR';
-            document.getElementById("languageSelect").value = savedLanguage;
+            // Configuração do telefone internacional
+            var phoneNumberInput = document.querySelector('#phoneNumber');
+            var iti = window.intlTelInput(phoneNumberInput, {
+                initialCountry: 'br',
+                preferredCountries: ['br', 'us'],
+                separateDialCode: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+            });
+
+            // Configuração do idioma
+            const savedLanguage = localStorage.getItem('preferredLanguage') || detectLanguage();
+            document.querySelector('#languageSelect').value = savedLanguage;
             updatePageLanguage(savedLanguage);
+
+            // Função para abrir WhatsApp
+            window.openWhatsApp = function() {
+                var message = encodeURIComponent(document.querySelector('#messageText').value);
+                var phoneNumber = phoneNumberInput.value.replace(/\D/g,'');
+                var countryData = iti.getSelectedCountryData();
+                var dialCode = countryData.dialCode;
+                phoneNumber = '+' + dialCode + phoneNumber;
+                
+                if (phoneNumber) {
+                    var url = `https://wa.me/${phoneNumber}`;
+                    if (message) {
+                        url += `?text=${message}`;
+                    }
+                    window.open(url, '_blank');
+                    gtag('event', 'click', {
+                        'event_category': 'WhatsApp Chat',
+                        'event_label': 'Initiate Chat',
+                        'value': phoneNumber
+                    });
+                } else {
+                    const lang = document.documentElement.lang;
+                    alert(translations[lang].phoneError);
+                }
+            }
         });
+
+        // Google Analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0YQTBMJMDF');
+
+        // Função para rastrear cliques em redes sociais
+        function trackSocialClick(serviceName) {
+            gtag('event', 'click', {
+                'event_category': 'Social Media',
+                'event_label': serviceName
+            });
+        }
     </script>
 </body>
 </html>
