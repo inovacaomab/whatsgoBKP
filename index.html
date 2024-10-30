@@ -39,6 +39,19 @@
             max-width: 600px;
             margin: 0 auto;
         }
+        /* Adicionando estilos RTL para idiomas árabe e hebraico */
+        [dir="rtl"] {
+            text-align: right;
+        }
+        /* Estilos responsivos */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            #phoneNumber, #messageText {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -101,47 +114,286 @@
                 gloryMessage: "A DEUS toda a Glória!",
                 phoneError: "Por favor, insira um número de telefone."
             },
-            'en': { /* English translations */ },
-            'es': { /* Spanish translations */ },
-            'fr': { /* French translations */ },
-            'de': { /* German translations */ },
-            'it': { /* Italian translations */ },
-            'zh': { /* Chinese translations */ },
-            'ja': { /* Japanese translations */ },
-            'ru': { /* Russian translations */ },
-            'ar': { /* Arabic translations */ },
-            'he': { /* Hebrew translations */ }
+            'en': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Easily access your messaging APP.",
+                ogTitle: "What's Go APP",
+                ogDescription: "Simplify access to your messaging app with What's Go!",
+                phonePlaceholder: "Phone number",
+                messagePlaceholder: "Type your message here...",
+                startChat: "Start Chat",
+                developedBy: "Developed by",
+                followInstagram: "Follow our bio!",
+                subscribeYoutube: "Subscribe now!",
+                followLinkedIn: "Follow our page!",
+                joinChannel: "Join the Channel!",
+                installAndroid: "Install APP for ANDROID!",
+                gloryMessage: "All Glory to GOD!",
+                phoneError: "Please enter a phone number."
+            },
+            'es': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Accede fácilmente a tu APP de mensajes.",
+                ogTitle: "What's Go APP",
+                ogDescription: "¡Simplifica el acceso a tu app de mensajes con What's Go!",
+                phonePlaceholder: "Número de teléfono",
+                messagePlaceholder: "Escribe tu mensaje aquí...",
+                startChat: "Iniciar Chat",
+                developedBy: "Desarrollado por",
+                followInstagram: "¡Sigue nuestra bio!",
+                subscribeYoutube: "¡Suscríbete ahora!",
+                followLinkedIn: "¡Sigue nuestra página!",
+                joinChannel: "¡Únete al Canal!",
+                installAndroid: "¡Instala la APP para ANDROID!",
+                gloryMessage: "¡A DIOS toda la Gloria!",
+                phoneError: "Por favor, introduce un número de teléfono."
+            },
+            'fr': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Accédez facilement à votre APP de messagerie.",
+                ogTitle: "What's Go APP",
+                ogDescription: "Simplifiez l'accès à votre app de messagerie avec What's Go !",
+                phonePlaceholder: "Numéro de téléphone",
+                messagePlaceholder: "Tapez votre message ici...",
+                startChat: "Démarrer le Chat",
+                developedBy: "Développé par",
+                followInstagram: "Suivez notre bio !",
+                subscribeYoutube: "Abonnez-vous maintenant !",
+                followLinkedIn: "Suivez notre page !",
+                joinChannel: "Rejoignez le Canal !",
+                installAndroid: "Installez l'APP pour ANDROID !",
+                gloryMessage: "À DIEU toute la Gloire !",
+                phoneError: "Veuillez entrer un numéro de téléphone."
+            },
+            'de': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Greifen Sie einfach auf Ihre Messaging-APP zu.",
+                ogTitle: "What's Go APP",
+                ogDescription: "Vereinfachen Sie den Zugriff auf Ihre Messaging-App mit What's Go!",
+                phonePlaceholder: "Telefonnummer",
+                messagePlaceholder: "Geben Sie Ihre Nachricht hier ein...",
+                startChat: "Chat starten",
+                developedBy: "Entwickelt von",
+                followInstagram: "Folgen Sie unserer Bio!",
+                subscribeYoutube: "Jetzt abonnieren!",
+                followLinkedIn: "Folgen Sie unserer Seite!",
+                joinChannel: "Kanal beitreten!",
+                installAndroid: "APP für ANDROID installieren!",
+                gloryMessage: "GOTT sei alle Ehre!",
+                phoneError: "Bitte geben Sie eine Telefonnummer ein."
+            },
+            'it': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Accedi facilmente alla tua APP di messaggistica.",
+                ogTitle: "What's Go APP",
+                ogDescription: "Semplifica l'accesso alla tua app di messaggistica con What's Go!",
+                phonePlaceholder: "Numero di telefono",
+                messagePlaceholder: "Scrivi il tuo messaggio qui...",
+                startChat: "Inizia Chat",
+                developedBy: "Sviluppato da",
+                followInstagram: "Segui la nostra bio!",
+                subscribeYoutube: "Iscriviti ora!",
+                followLinkedIn: "Segui la nostra pagina!",
+                joinChannel: "Unisciti al Canale!",
+                installAndroid: "Installa l'APP per ANDROID!",
+                gloryMessage: "A DIO tutta la Gloria!",
+                phoneError: "Inserisci un numero di telefono."
+            },
+            'zh': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - 轻松访问您的消息APP。",
+                ogTitle: "What's Go APP",
+                ogDescription: "使用What's Go简化您的消息应用程序访问！",
+                phonePlaceholder: "电话号码",
+                messagePlaceholder: "在此输入您的消息...",
+                startChat: "开始聊天",
+                developedBy: "开发者",
+                followInstagram: "关注我们的简介！",
+                subscribeYoutube: "立即订阅！",
+                followLinkedIn: "关注我们的页面！",
+                joinChannel: "加入频道！",
+                installAndroid: "安装安卓版APP！",
+                gloryMessage: "荣耀归于上帝！",
+                phoneError: "请输入电话号码。"
+            },
+            'ja': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - メッセージングAPPに簡単にアクセス。",
+                ogTitle: "What's Go APP",
+                ogDescription: "What's Goでメッセージングアプリへのアクセスを簡単に！",
+                phonePlaceholder: "電話番号",
+                messagePlaceholder: "メッセージを入力してください...",
+                startChat: "チャットを開始",
+                developedBy: "開発者",
+                followInstagram: "プロフィールをフォロー！",
+                subscribeYoutube: "今すぐ登録！",
+                followLinkedIn: "ページをフォロー！",
+                joinChannel: "チャンネルに参加！",
+                installAndroid: "ANDROIDアプリをインストール！",
+                gloryMessage: "神に栄光あれ！",
+                phoneError: "電話番号を入力してください。"
+            },
+            'ru': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Легкий доступ к вашему мессенджеру.",
+                ogTitle: "What's Go APP",
+                ogDescription: "Упростите доступ к вашему мессенджеру с What's Go!",
+                phonePlaceholder: "Номер телефона",
+                messagePlaceholder: "Введите ваше сообщение здесь...",
+                startChat: "Начать чат",
+                developedBy: "Разработано",
+                followInstagram: "Подпишитесь на нашу био!",
+                subscribeYoutube: "Подпишитесь сейчас!",
+                followLinkedIn: "Подпишитесь на нашу страницу!",
+                joinChannel: "Присоединиться к каналу!",
+                installAndroid: "Установить приложение для ANDROID!",
+                gloryMessage: "Вся слава БОГУ!",
+                phoneError: "Пожалуйста, введите номер телефона."
+            },
+            'ar': {
+    pageTitle: "What's Go تطبيق",
+    metaDescription: "What's Go تطبيق - الوصول بسهولة إلى تطبيق المراسلة الخاص بك",
+    ogTitle: "What's Go تطبيق",
+    ogDescription: "!What's Go بسّط الوصول إلى تطبيق المراسلة الخاص بك مع",
+    phonePlaceholder: "رقم الهاتف",
+    messagePlaceholder: "اكتب رسالتك هنا...",
+    startChat: "بدء المحادثة",
+    developedBy: "تم التطوير بواسطة",
+    followInstagram: "!تابعنا على انستغرام",
+    subscribeYoutube: "!اشترك في قناتنا",
+    followLinkedIn: "!تابعنا على لينكد إن",
+    joinChannel: "!انضم إلى القناة",
+    installAndroid: "!قم بتثبيت التطبيق على أندرويد",
+    gloryMessage: "!المجد لله",
+    phoneError: "يرجى إدخال رقم الهاتف"
+},
+            'he': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - גישה קלה לאפליקציית ההודעות שלך.",
+                ogTitle: "What's Go APP",
+                ogDescription: "!What's Go פשט את הגישה לאפליקציית ההודעות שלך עם",
+                phonePlaceholder: "מספר טלפון",
+                messagePlaceholder: "...הקלד את ההודעה שלך כאן",
+                startChat: "התחל צ'אט",
+                developedBy: "פותח על ידי",
+                followInstagram: "!עקוב אחרי הביו שלנו",
+                subscribeYoutube: "!הירשם עכשיו",
+                followLinkedIn: "!עקוב אחרי הדף שלנו",
+                joinChannel: "!הצטרף לערוץ",
+                installAndroid: "!ANDROID התקן את האפליקציה עבור",
+                gloryMessage: "!כל הכבוד לאלוהים",
+                phoneError: "אנא הכנס מספר טלפון",
+                invalidPhone: "מספר טלפון לא חוקי"
+            }
         };
 
-        function detectLanguage() {
-            const browserLang = navigator.language || navigator.userLanguage;
-            const shortLang = browserLang.split('-')[0];
-            if (translations[browserLang]) return browserLang;
-            if (translations[shortLang]) return shortLang;
-            return 'pt-BR';
+        // Funções de utilidade
+        function isRTLLanguage(lang) {
+            return lang === 'he';
         }
 
+        function formatPhoneNumber(phone, lang) {
+            // Remove todos os caracteres não numéricos
+            const cleanPhone = phone.replace(/\D/g, '');
+            
+            // Formata o número baseado no idioma
+            switch(lang) {
+                case 'pt-BR':
+                    if (cleanPhone.length === 11) {
+                        return `(${cleanPhone.slice(0,2)}) ${cleanPhone.slice(2,7)}-${cleanPhone.slice(7)}`;
+                    }
+                    return cleanPhone;
+                default:
+                    return cleanPhone;
+            }
+        }
+
+        function validatePhoneNumber(phone) {
+            const cleanPhone = phone.replace(/\D/g, '');
+            return cleanPhone.length >= 8 && cleanPhone.length <= 15;
+        }
+
+        // Função principal para atualizar o idioma
         function updatePageLanguage(lang) {
             document.documentElement.lang = lang;
+            document.documentElement.dir = isRTLLanguage(lang) ? 'rtl' : 'ltr';
+            
             const texts = translations[lang];
+            
+            // Atualiza meta tags
             document.title = texts.pageTitle;
             document.querySelector('meta[name="description"]').content = texts.metaDescription;
             document.querySelector('meta[property="og:title"]').content = texts.ogTitle;
             document.querySelector('meta[property="og:description"]').content = texts.ogDescription;
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => element.placeholder = texts[element.getAttribute('data-i18n-placeholder')]);
-            document.querySelectorAll('[data-i18n]').forEach(element => element.textContent = texts[element.getAttribute('data-i18n')]);
-            document.querySelectorAll('[data-i18n-title]').forEach(element => element.title = texts[element.getAttribute('data-i18n-title')]);
+            
+            // Atualiza placeholders e textos
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                element.placeholder = texts[element.getAttribute('data-i18n-placeholder')];
+            });
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                element.textContent = texts[element.getAttribute('data-i18n')];
+            });
+            document.querySelectorAll('[data-i18n-title]').forEach(element => {
+                element.title = texts[element.getAttribute('data-i18n-title')];
+            });
         }
 
         function changeLanguage(lang) {
             updatePageLanguage(lang);
             localStorage.setItem('preferredLanguage', lang);
+            
+            // Reinicializa o input de telefone se necessário
+            const phoneInput = document.getElementById('phoneNumber');
+            if (phoneInput.value) {
+                phoneInput.value = formatPhoneNumber(phoneInput.value, lang);
+            }
         }
 
+        function openWhatsApp() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const message = document.getElementById('messageText').value;
+            const currentLang = document.documentElement.lang;
+            
+            if (!validatePhoneNumber(phoneNumber)) {
+                alert(translations[currentLang].invalidPhone);
+                return;
+            }
+
+            const cleanPhone = phoneNumber.replace(/\D/g, '');
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function trackSocialClick(network) {
+            // Implementar tracking de analytics aqui se necessário
+            console.log(`Social click: ${network}`);
+        }
+
+        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            const savedLanguage = localStorage.getItem('preferredLanguage') || detectLanguage();
-            document.querySelector('#languageSelect').value = savedLanguage;
-            updatePageLanguage(savedLanguage);
+            // Detecta e configura o idioma inicial
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 
+                                navigator.language ||
+                                navigator.userLanguage ||
+                                'pt-BR';
+                                
+            const languageSelect = document.querySelector('#languageSelect');
+            if (translations[savedLanguage]) {
+                languageSelect.value = savedLanguage;
+            } else {
+                languageSelect.value = 'pt-BR';
+            }
+            
+            updatePageLanguage(languageSelect.value);
+
+            // Configura máscara de telefone
+            const phoneInput = document.getElementById('phoneNumber');
+            phoneInput.addEventListener('input', function(e) {
+                const currentLang = document.documentElement.lang;
+                e.target.value = formatPhoneNumber(e.target.value, currentLang);
+            });
         });
     </script>
 </body>
