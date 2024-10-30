@@ -11,7 +11,7 @@
     <meta property="og:description" data-i18n="ogDescription" content="Simplifique o acesso ao seu app de mensagens com What's Go!"/>
     <meta property="og:image" content="https://example.com/thumbnail.jpg"/>
     <meta property="og:url" content="https://www.inovacaomab.com/whatsgoapp">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
@@ -39,11 +39,11 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        /* Adicionando estilos RTL para idiomas árabe e hebraico */
+        /* Estilos para RTL */
         [dir="rtl"] {
             text-align: right;
         }
-        /* Estilos responsivos */
+        /* Responsividade */
         @media (max-width: 480px) {
             .container {
                 padding: 10px;
@@ -58,7 +58,10 @@
     <div class="container">
         <img src="iconeprincipal.jpg" alt="What's Go Logo" id="logo">
         <h1 id="appName">What's Go</h1>
+
+        <!-- Input de Telefone com DDI e Bandeira -->
         <input type="tel" id="phoneNumber" data-i18n-placeholder="phonePlaceholder">
+        
         <textarea id="messageText" data-i18n-placeholder="messagePlaceholder"></textarea>
         <button onclick="openWhatsApp()" data-i18n="startChat">Iniciar Chat</button>
 
@@ -85,17 +88,34 @@
                 <a href="https://www.inovacaomab.com">Inovação MAB</a>
             </p>
             <div class="social-links">
-                <a href="https://www.instagram.com/whats_go_app" target="_blank" onclick="trackSocialClick('Instagram')" data-i18n-title="followInstagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@whatsgoapp" target="_blank" onclick="trackSocialClick('YouTube')" data-i18n-title="subscribeYoutube"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank" onclick="trackSocialClick('LinkedIn')" data-i18n-title="followLinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank" onclick="trackSocialClick('WhatsApp')" data-i18n-title="joinChannel"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://play.google.com/store/apps/details?id=com.inovacaomab.whatsgo" target="_blank" onclick="trackSocialClick('Instale o APP da Play Store')" data-i18n-title="installAndroid"><i class="fab fa-google-play"></i></a>
+                <a href="https://www.instagram.com/whats_go_app" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@whatsgoapp" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/company/inovacao-mab/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://whatsapp.com/channel/0029Va5uO93FcowAHRjvWP0k" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://play.google.com/store/apps/details?id=com.inovacaomab.whatsgo" target="_blank"><i class="fab fa-google-play"></i></a>
             </div>
             <p id="glory" data-i18n="gloryMessage">A DEUS toda a Glória!</p>
         </footer>
     </div>
 
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
     <script>
+        // Configuração de internacionalização para input de telefone com DDI e bandeira
+        const phoneInput = document.getElementById("phoneNumber");
+        const iti = intlTelInput(phoneInput, {
+            initialCountry: "auto",
+            separateDialCode: true,
+            geoIpLookup: function(callback) {
+                fetch('https://ipapi.co/json')
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("BR"));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+        });
+
+        // Funções de internacionalização
         const translations = {
             'pt-BR': {
                 pageTitle: "What's Go APP",
@@ -287,113 +307,40 @@
             }
         };
 
-        // Funções de utilidade
         function isRTLLanguage(lang) {
-            return lang === 'he';
+            return lang === 'he' || lang === 'ar';
         }
 
-        function formatPhoneNumber(phone, lang) {
-            // Remove todos os caracteres não numéricos
-            const cleanPhone = phone.replace(/\D/g, '');
-            
-            // Formata o número baseado no idioma
-            switch(lang) {
-                case 'pt-BR':
-                    if (cleanPhone.length === 11) {
-                        return `(${cleanPhone.slice(0,2)}) ${cleanPhone.slice(2,7)}-${cleanPhone.slice(7)}`;
-                    }
-                    return cleanPhone;
-                default:
-                    return cleanPhone;
-            }
-        }
-
-        function validatePhoneNumber(phone) {
-            const cleanPhone = phone.replace(/\D/g, '');
-            return cleanPhone.length >= 8 && cleanPhone.length <= 15;
-        }
-
-        // Função principal para atualizar o idioma
         function updatePageLanguage(lang) {
             document.documentElement.lang = lang;
             document.documentElement.dir = isRTLLanguage(lang) ? 'rtl' : 'ltr';
-            
             const texts = translations[lang];
-            
-            // Atualiza meta tags
             document.title = texts.pageTitle;
             document.querySelector('meta[name="description"]').content = texts.metaDescription;
-            document.querySelector('meta[property="og:title"]').content = texts.ogTitle;
-            document.querySelector('meta[property="og:description"]').content = texts.ogDescription;
-            
-            // Atualiza placeholders e textos
             document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
                 element.placeholder = texts[element.getAttribute('data-i18n-placeholder')];
             });
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 element.textContent = texts[element.getAttribute('data-i18n')];
             });
-            document.querySelectorAll('[data-i18n-title]').forEach(element => {
-                element.title = texts[element.getAttribute('data-i18n-title')];
-            });
         }
 
         function changeLanguage(lang) {
             updatePageLanguage(lang);
             localStorage.setItem('preferredLanguage', lang);
-            
-            // Reinicializa o input de telefone se necessário
-            const phoneInput = document.getElementById('phoneNumber');
-            if (phoneInput.value) {
-                phoneInput.value = formatPhoneNumber(phoneInput.value, lang);
-            }
         }
 
         function openWhatsApp() {
-            const phoneNumber = document.getElementById('phoneNumber').value;
+            const cleanPhone = iti.getNumber().replace(/\D/g, '');
             const message = document.getElementById('messageText').value;
-            const currentLang = document.documentElement.lang;
-            
-            if (!validatePhoneNumber(phoneNumber)) {
-                alert(translations[currentLang].invalidPhone);
-                return;
-            }
-
-            const cleanPhone = phoneNumber.replace(/\D/g, '');
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
-            
+            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
 
-        function trackSocialClick(network) {
-            // Implementar tracking de analytics aqui se necessário
-            console.log(`Social click: ${network}`);
-        }
-
-        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            // Detecta e configura o idioma inicial
-            const savedLanguage = localStorage.getItem('preferredLanguage') || 
-                                navigator.language ||
-                                navigator.userLanguage ||
-                                'pt-BR';
-                                
-            const languageSelect = document.querySelector('#languageSelect');
-            if (translations[savedLanguage]) {
-                languageSelect.value = savedLanguage;
-            } else {
-                languageSelect.value = 'pt-BR';
-            }
-            
-            updatePageLanguage(languageSelect.value);
-
-            // Configura máscara de telefone
-            const phoneInput = document.getElementById('phoneNumber');
-            phoneInput.addEventListener('input', function(e) {
-                const currentLang = document.documentElement.lang;
-                e.target.value = formatPhoneNumber(e.target.value, currentLang);
-            });
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 'pt-BR';
+            document.getElementById("languageSelect").value = savedLanguage;
+            updatePageLanguage(savedLanguage);
         });
     </script>
 </body>
