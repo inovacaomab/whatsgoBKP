@@ -44,6 +44,48 @@
             border-color: #999;
         }
         
+        /* Estilo para o botão de doação */
+        .donation-section {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .donation-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .donation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, #ee5a52, #ff6b6b);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .donation-btn i {
+            font-size: 12px;
+            animation: heartbeat 2s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
         /* Mantém os estilos existentes do seu site e apenas ajusta o container */
         .container {
             display: flex;
@@ -72,6 +114,7 @@
                 <option value="fr">Français</option>
                 <option value="de">Deutsch</option>
                 <option value="it">Italiano</option>
+                <option value="id">Bahasa Indonesia</option>
                 <option value="zh">中文</option>
                 <option value="ja">日本語</option>
                 <option value="ru">Русский</option>
@@ -94,6 +137,14 @@
                 <a href="https://play.google.com/store/apps/details?id=com.inovacaomab.whatsgo" target="_blank" onclick="trackSocialClick('Instale o APP da Play Store')" data-i18n-title="installAndroid"><i class="fab fa-google-play"></i></a>
             </div>
             <p id="glory" data-i18n="gloryMessage">A DEUS toda a Glória!</p>
+            
+            <!-- Botão de doação discreto -->
+            <div class="donation-section">
+                <a href="#" onclick="openDonation()" class="donation-btn" data-i18n-title="supportProject">
+                    <i class="fas fa-heart"></i>
+                    <span data-i18n="supportUs">Apoiar</span>
+                </a>
+            </div>
         </footer>
     </div>
 
@@ -115,7 +166,9 @@
                 joinChannel: "Participe do Canal!",
                 installAndroid: "Instale o APP para ANDROID!",
                 gloryMessage: "A DEUS toda a Glória!",
-                phoneError: "Por favor, insira um número de telefone."
+                phoneError: "Por favor, insira um número de telefone.",
+                supportUs: "Apoiar",
+                supportProject: "Apoie o projeto com uma doação"
             },
             'en': {
                 pageTitle: "What's Go APP",
@@ -132,7 +185,9 @@
                 joinChannel: "Join the Channel!",
                 installAndroid: "Install APP for ANDROID!",
                 gloryMessage: "To GOD be all the Glory!",
-                phoneError: "Please enter a phone number."
+                phoneError: "Please enter a phone number.",
+                supportUs: "Support",
+                supportProject: "Support the project with a donation"
             },
             'es': {
                 pageTitle: "What's Go APP",
@@ -149,7 +204,9 @@
                 joinChannel: "¡Únete al Canal!",
                 installAndroid: "¡Instala la APP para ANDROID!",
                 gloryMessage: "¡A DIOS sea toda la Gloria!",
-                phoneError: "Por favor, ingresa un número de teléfono."
+                phoneError: "Por favor, ingresa un número de teléfono.",
+                supportUs: "Apoyar",
+                supportProject: "Apoya el proyecto con una donación"
             },
             'fr': {
                 pageTitle: "What's Go APP",
@@ -166,7 +223,9 @@
                 joinChannel: "Rejoignez le Canal !",
                 installAndroid: "Installez l'APP pour ANDROID !",
                 gloryMessage: "À DIEU toute la Gloire !",
-                phoneError: "Veuillez entrer un numéro de téléphone."
+                phoneError: "Veuillez entrer un numéro de téléphone.",
+                supportUs: "Soutenir",
+                supportProject: "Soutenez le projet avec un don"
             },
             'de': {
                 pageTitle: "What's Go APP",
@@ -183,7 +242,9 @@
                 joinChannel: "Kanal beitreten!",
                 installAndroid: "APP für ANDROID installieren!",
                 gloryMessage: "GOTT sei alle Ehre!",
-                phoneError: "Bitte geben Sie eine Telefonnummer ein."
+                phoneError: "Bitte geben Sie eine Telefonnummer ein.",
+                supportUs: "Unterstützen",
+                supportProject: "Unterstützen Sie das Projekt mit einer Spende"
             },
             'it': {
                 pageTitle: "What's Go APP",
@@ -200,7 +261,28 @@
                 joinChannel: "Unisciti al Canale!",
                 installAndroid: "Installa l'APP per ANDROID!",
                 gloryMessage: "A DIO tutta la Gloria!",
-                phoneError: "Inserisci un numero di telefono."
+                phoneError: "Inserisci un numero di telefono.",
+                supportUs: "Sostieni",
+                supportProject: "Sostieni il progetto con una donazione"
+            },
+            'id': {
+                pageTitle: "What's Go APP",
+                metaDescription: "What's Go APP - Akses mudah ke aplikasi pesan Anda.",
+                ogTitle: "What's Go APP",
+                ogDescription: "Sederhanakan akses ke aplikasi pesan Anda dengan What's Go!",
+                phonePlaceholder: "Nomor telepon",
+                messagePlaceholder: "Ketik pesan Anda di sini...",
+                startChat: "Mulai Chat",
+                developedBy: "Dikembangkan oleh",
+                followInstagram: "Ikuti bio kami!",
+                subscribeYoutube: "Berlangganan sekarang!",
+                followLinkedIn: "Ikuti halaman kami!",
+                joinChannel: "Bergabung dengan Saluran!",
+                installAndroid: "Instal APP untuk ANDROID!",
+                gloryMessage: "Segala kemuliaan bagi TUHAN!",
+                phoneError: "Harap masukkan nomor telepon.",
+                supportUs: "Dukung",
+                supportProject: "Dukung proyek ini dengan donasi"
             },
             'zh': {
                 pageTitle: "What's Go APP",
@@ -217,7 +299,9 @@
                 joinChannel: "加入频道！",
                 installAndroid: "安装安卓版APP！",
                 gloryMessage: "荣耀归于上帝！",
-                phoneError: "请输入电话号码。"
+                phoneError: "请输入电话号码。",
+                supportUs: "支持",
+                supportProject: "通过捐赠支持项目"
             },
             'ja': {
                 pageTitle: "What's Go APP",
@@ -234,7 +318,9 @@
                 joinChannel: "チャンネルに参加！",
                 installAndroid: "ANDROIDアプリをインストール！",
                 gloryMessage: "神に栄光あれ！",
-                phoneError: "電話番号を入力してください。"
+                phoneError: "電話番号を入力してください。",
+                supportUs: "サポート",
+                supportProject: "寄付でプロジェクトをサポート"
             },
             'ru': {
                 pageTitle: "What's Go APP",
@@ -251,7 +337,9 @@
                 joinChannel: "Присоединиться к каналу!",
                 installAndroid: "Установить приложение для ANDROID!",
                 gloryMessage: "Вся слава БОГУ!",
-                phoneError: "Пожалуйста, введите номер телефона."
+                phoneError: "Пожалуйста, введите номер телефона.",
+                supportUs: "Поддержать",
+                supportProject: "Поддержите проект пожертвованием"
             },
             'ar': {
                 pageTitle: "What's Go تطبيق",
@@ -268,7 +356,9 @@
                 joinChannel: "!انضم إلى القناة",
                 installAndroid: "!قم بتثبيت التطبيق على أندرويد",
                 gloryMessage: "!المجد لله",
-                phoneError: "يرجى إدخال رقم الهاتف"
+                phoneError: "يرجى إدخال رقم الهاتف",
+                supportUs: "دعم",
+                supportProject: "ادعم المشروع بالتبرع"
             },
             'he': {
                 pageTitle: "What's Go APP",
@@ -286,7 +376,9 @@
                 installAndroid: "!ANDROID התקן את האפליקציה עבור",
                 gloryMessage: "!כל הכבוד לאלוהים",
                 phoneError: "אנא הכנס מספר טלפון",
-                invalidPhone: "מספר טלפון לא חוקי"
+                invalidPhone: "מספר טלפון לא חוקי",
+                supportUs: "תמכו",
+                supportProject: "תמכו בפרויקט בתרומה"
             }
         };
 
@@ -394,6 +486,19 @@
             gtag('event', 'click', {
                 'event_category': 'Social Media',
                 'event_label': serviceName
+            });
+        }
+
+        // Função para abrir link de doação
+        function openDonation() {
+            // Substitua este link pelo seu link de doação (PayPal, PicPay, PIX, etc.)
+            const donationLink = 'https://www.paypal.com/donate'; // Exemplo
+            window.open(donationLink, '_blank');
+            
+            // Rastreamento de clique na doação
+            gtag('event', 'click', {
+                'event_category': 'Donation',
+                'event_label': 'Support Button'
             });
         }
     </script>
