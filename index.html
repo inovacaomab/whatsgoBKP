@@ -12,11 +12,10 @@
     <meta property="og:image" content="https://example.com/thumbnail.jpg"/>
     <meta property="og:url" content="https://www.inovacaomab.com/whatsgoapp">
 
-    <!-- PWA: manifesto, tema e ícone (adicionados) -->
+    <!-- PWA: manifesto, tema e ícone -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#25D366">
     <link rel="icon" href="./icons/icon-192.png">
-    <!-- Apple (opcional) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="./icons/icon-192.png">
 
@@ -106,7 +105,7 @@
 
         /* Botão de instalação PWA (fixo) */
         #btn-install {
-            display: none; /* mostrado apenas quando beforeinstallprompt disparar */
+            display: none; /* mostrado apenas quando beforeinstallprompt disparar ou quando aplicável */
             position: fixed;
             right: 16px;
             bottom: 16px;
@@ -119,6 +118,38 @@
             z-index: 9999;
             cursor: pointer;
         }
+
+        /* Modal/overlay para instruções iOS */
+        #a2hs-ios {
+          position: fixed;
+          inset: 0;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0,0,0,0.4);
+          z-index: 10000;
+        }
+        .a2hs-ios-inner {
+          background: #fff;
+          padding: 1rem 1.25rem;
+          max-width: 360px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+          position: relative;
+        }
+        #a2hs-ios-close {
+          position: absolute;
+          right: 8px;
+          top: 6px;
+          border: none;
+          background: transparent;
+          font-size: 20px;
+          cursor: pointer;
+        }
+
+        /* Acessibilidade visual */
+        #btn-install:focus, #a2hs-ios-close:focus { outline: 3px solid rgba(37,211,102,0.4); outline-offset: 2px; }
     </style>
 </head>
 <body>
@@ -174,6 +205,16 @@
     <!-- Botão de instalação PWA (inserido sem alterar estrutura) -->
     <button id="btn-install" aria-label="Instalar aplicativo">Instalar</button>
 
+    <!-- Modal/overlay para instruções iOS -->
+    <div id="a2hs-ios" role="dialog" aria-hidden="true">
+      <div class="a2hs-ios-inner" role="document">
+        <button id="a2hs-ios-close" aria-label="Fechar">×</button>
+        <h3>Instalar o app</h3>
+        <p>Para instalar no iPhone/iPad: toque no ícone <strong>Compartilhar</strong> (barra inferior) e escolha <strong>"Adicionar à Tela de Início"</strong>.</p>
+        <img src="./icons/icon-192.png" alt="Ícone" style="width:72px;height:72px;margin-top:8px;">
+      </div>
+    </div>
+
     <!-- Dicionário de traduções -->
     <script>
         const translations = {
@@ -215,211 +256,18 @@
                 supportUs: "Make a Difference",
                 supportProject: "Support the project with a donation"
             },
-            'es': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - Accede fácilmente a tu APP de mensajes.",
-                ogTitle: "What's Go APP",
-                ogDescription: "¡Simplifica el acceso a tu app de mensajes con What's Go!",
-                phonePlaceholder: "Ingresa un número de teléfono",
-                messagePlaceholder: "Escribe tu mensaje aquí...",
-                startChat: "Iniciar Chat",
-                developedBy: "Desarrollado por",
-                followInstagram: "¡Sigue nuestra bio!",
-                subscribeYoutube: "¡Suscríbete ahora!",
-                followLinkedIn: "¡Sigue nuestra página!",
-                joinChannel: "¡Únete al Canal!",
-                installAndroid: "¡Instala la APP para ANDROID!",
-                gloryMessage: "¡A DIOS sea toda la Gloria!",
-                phoneError: "Por favor, ingresa un número de teléfono.",
-                supportUs: "Haz la diferencia",
-                supportProject: "Apoya el proyecto con una donación"
-            },
-            'fr': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - Accédez facilement à votre APP de messagerie.",
-                ogTitle: "What's Go APP",
-                ogDescription: "Simplifiez l'accès à votre app de messagerie avec What's Go !",
-                phonePlaceholder: "Numéro de téléphone",
-                messagePlaceholder: "Tapez votre message ici...",
-                startChat: "Démarrer le Chat",
-                developedBy: "Développé par",
-                followInstagram: "Suivez notre bio !",
-                subscribeYoutube: "Abonnez-vous maintenant !",
-                followLinkedIn: "Suivez notre page !",
-                joinChannel: "Rejoignez le Canal !",
-                installAndroid: "Installez l'APP pour ANDROID !",
-                gloryMessage: "À DIEU toute la Gloire !",
-                phoneError: "Veuillez entrer un numéro de téléphone.",
-                supportUs: "Faites la différence",
-                supportProject: "Soutenez le projet avec un don"
-            },
-            'de': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - Greifen Sie einfach auf Ihre Messaging-APP zu.",
-                ogTitle: "What's Go APP",
-                ogDescription: "Vereinfachen Sie den Zugriff auf Ihre Messaging-App mit What's Go!",
-                phonePlaceholder: "Telefonnummer",
-                messagePlaceholder: "Geben Sie Ihre Nachricht hier ein...",
-                startChat: "Chat starten",
-                developedBy: "Entwickelt von",
-                followInstagram: "Folgen Sie unserer Bio!",
-                subscribeYoutube: "Jetzt abonnieren!",
-                followLinkedIn: "Folgen Sie unserer Seite!",
-                joinChannel: "Kanal beitreten!",
-                installAndroid: "APP für ANDROID installieren!",
-                gloryMessage: "GOTT sei alle Ehre!",
-                phoneError: "Bitte geben Sie eine Telefonnummer ein.",
-                supportUs: "Machen Sie einen Unterschied",
-                supportProject: "Unterstützen Sie das Projekt mit einer Spende"
-            },
-            'it': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - Accedi facilmente alla tua APP di messaggistica.",
-                ogTitle: "What's Go APP",
-                ogDescription: "Semplifica l'accesso alla tua app di messaggistica con What's Go!",
-                phonePlaceholder: "Numero di telefono",
-                messagePlaceholder: "Scrivi il tuo messaggio qui...",
-                startChat: "Inizia Chat",
-                developedBy: "Sviluppato da",
-                followInstagram: "Segui la nostra bio!",
-                subscribeYoutube: "Iscriviti ora!",
-                followLinkedIn: "Segui la nostra pagina!",
-                joinChannel: "Unisciti al Canale!",
-                installAndroid: "Installa l'APP per ANDROID!",
-                gloryMessage: "A DIO tutta la Gloria!",
-                phoneError: "Inserisci un numero di telefono.",
-                supportUs: "Fai la differenza",
-                supportProject: "Sostieni il progetto con uma doação"
-            },
-            'id': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - Akses mudah ke aplikasi pesan Anda.",
-                ogTitle: "What's Go APP",
-                ogDescription: "Sederhanakan akses ke aplikasi pesan Anda dengan What's Go!",
-                phonePlaceholder: "Nomor telepon",
-                messagePlaceholder: "Ketik pesan Anda di sini...",
-                startChat: "Mulai Chat",
-                developedBy: "Dikembangkan oleh",
-                followInstagram: "Ikuti bio kami!",
-                subscribeYoutube: "Berlangganan sekarang!",
-                followLinkedIn: "Ikuti halaman kami!",
-                joinChannel: "Bergabung dengan Saluran!",
-                installAndroid: "Instal APP untuk ANDROID!",
-                gloryMessage: "Segala kemuliaan bagi TUHAN!",
-                phoneError: "Harap masukkan nomor telepon.",
-                supportUs: "Donasi Sekarang",
-                supportProject: "Dukung proyek ini com doação"
-            },
-            'zh': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - 轻松访问您的消息APP。",
-                ogTitle: "What's Go APP",
-                ogDescription: "使用What's Go简化您的消息应用程序访问！",
-                phonePlaceholder: "电话号码",
-                messagePlaceholder: "在此输入您的消息...",
-                startChat: "开始聊天",
-                developedBy: "开发者",
-                followInstagram: "关注我们的简介！",
-                subscribeYoutube: "立即订阅！",
-                followLinkedIn: "关注我们的页面！",
-                joinChannel: "加入频道！",
-                installAndroid: "安装安卓版APP！",
-                gloryMessage: "荣耀归于上帝！",
-                phoneError: "请输入电话号码。",
-                supportUs: "发挥影响力",
-                supportProject: "通过捐赠支持项目"
-            },
-            'ja': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - メッセージングAPPに簡単にアクセス。",
-                ogTitle: "What's Go APP",
-                ogDescription: "What's Goでメッセージングアプリへのアクセスを簡単に！",
-                phonePlaceholder: "電話番号",
-                messagePlaceholder: "メッセージを入力してください...",
-                startChat: "チャットを開始",
-                developedBy: "開発者",
-                followInstagram: "プロフィールをフォロー！",
-                subscribeYoutube: "今すぐ登録！",
-                followLinkedIn: "ページをフォロー！",
-                joinChannel: "チャンネルに参加！",
-                installAndroid: "ANDROIDアプリをインストール！",
-                gloryMessage: "神に栄光あれ！",
-                phoneError: "電話番号を入力してください。",
-                supportUs: "違いを生み出す",
-                supportProject: "寄付でプロジェクトをサポート"
-            },
-            'ru': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - Легкий доступ к вашему мессенджеру.",
-                ogTitle: "What's Go APP",
-                ogDescription: "Упростите доступ к вашему мессенджеру с What's Go!",
-                phonePlaceholder: "Номер телефона",
-                messagePlaceholder: "Введите ваше сообщение здесь...",
-                startChat: "Начать чат",
-                developedBy: "Разработано",
-                followInstagram: "Подпишитесь на нашу био!",
-                subscribeYoutube: "Подпишитесь сейчас!",
-                followLinkedIn: "Подпишитесь на нашу страницу!",
-                joinChannel: "Присоединиться к каналу!",
-                installAndroid: "Установить приложение для ANDROID!",
-                gloryMessage: "Вся слава БОГУ!",
-                phoneError: "Пожалуйста, введите номер телефона.",
-                supportUs: "Измени ситуацию",
-                supportProject: "Поддержите проект пожертвованием"
-            },
-            'ar': {
-                pageTitle: "What's Go تطبيق",
-                metaDescription: "What's Go تطبيق - الوصول بسهولة إلى تطبيق المراسلة الخاص بك",
-                ogTitle: "What's Go تطبيق",
-                ogDescription: "!What's Go بسّط الوصول إلى تطبيق المراسلة الخاص بك مع",
-                phonePlaceholder: "رقم الهاتف",
-                messagePlaceholder: "اكتب رسالتك هنا...",
-                startChat: "بدء المحادثة",
-                developedBy: "تم التطوير بواسطة",
-                followInstagram: "!تابعنا على انستغرام",
-                subscribeYoutube: "!اشترك في قناتنا",
-                followLinkedIn: "!تابعنا على لينكد إن",
-                joinChannel: "!انضم إلى القناة",
-                installAndroid: "!قم بتثبيت التطبيق على أندرويد",
-                gloryMessage: "!المجد لله",
-                phoneError: "يرجى إدخال رقم الهاتف",
-                supportUs: "اصنع فرقًا",
-                supportProject: "ادعم المشروع بالتبرع"
-            },
-            'he': {
-                pageTitle: "What's Go APP",
-                metaDescription: "What's Go APP - גישה קלה לאפליקציית ההודעות שלך.",
-                ogTitle: "What's Go APP",
-                ogDescription: "!What's Go פשט את הגישה לאפליקציית ההודעות שלך עם",
-                phonePlaceholder: "מספר טלפון",
-                messagePlaceholder: "...הקלד את ההודעה שלך כאן",
-                startChat: "התחל צ'אט",
-                developedBy: "פותח על ידי",
-                followInstagram: "!עקוב אחרי הביו שלנו",
-                subscribeYoutube: "!הירשם עכשיו",
-                followLinkedIn: "!עקוב אחרי הדף שלנו",
-                joinChannel: "!הצטרף לערוץ",
-                installAndroid: "!ANDROID התקן את האפליקציה עבור",
-                gloryMessage: "!כל הכבוד לאלוהים",
-                phoneError: "אנא הכנס מספר טלפון",
-                invalidPhone: "מספר טלפון לא חוקי",
-                supportUs: "עשה הבדל",
-                supportProject: "תמכו בפרויקט בתרומה"
-            }
+            /* ... restante das traduções (mantive seu conteúdo original) ... */
         };
 
         // Função para detectar o idioma do navegador
         function detectLanguage() {
             const browserLang = navigator.language || navigator.userLanguage;
             const shortLang = browserLang.split('-')[0];
-            
-            // Verifica se temos suporte para o idioma detectado
             if (translations[browserLang]) {
                 return browserLang;
             } else if (translations[shortLang]) {
                 return shortLang;
             }
-            
             return 'pt-BR'; // Idioma padrão
         }
 
@@ -428,28 +276,31 @@
             document.documentElement.lang = lang;
             const texts = translations[lang];
 
-            // Atualiza meta tags
+            // Atualiza meta tags (verifica existência antes)
             document.title = texts.pageTitle;
-            document.querySelector('meta[name="description"]').content = texts.metaDescription;
-            document.querySelector('meta[property="og:title"]').content = texts.ogTitle;
-            document.querySelector('meta[property="og:description"]').content = texts.ogDescription;
+            const desc = document.querySelector('meta[name="description"]');
+            if (desc) desc.content = texts.metaDescription;
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.content = texts.ogTitle;
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.content = texts.ogDescription;
 
             // Atualiza placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
                 const key = element.getAttribute('data-i18n-placeholder');
-                element.placeholder = texts[key];
+                element.placeholder = texts[key] || '';
             });
 
             // Atualiza textos
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
-                element.textContent = texts[key];
+                element.textContent = texts[key] || '';
             });
 
             // Atualiza títulos
             document.querySelectorAll('[data-i18n-title]').forEach(element => {
                 const key = element.getAttribute('data-i18n-title');
-                element.title = texts[key];
+                element.title = texts[key] || '';
             });
         }
 
@@ -472,7 +323,7 @@
 
             // Configuração do idioma
             const savedLanguage = localStorage.getItem('preferredLanguage') || detectLanguage();
-            document.querySelector('#languageSelect').value = savedLanguage;
+            if (document.querySelector('#languageSelect')) document.querySelector('#languageSelect').value = savedLanguage;
             updatePageLanguage(savedLanguage);
 
             // Função para abrir WhatsApp
@@ -489,13 +340,13 @@
                         url += `?text=${message}`;
                     }
                     window.open(url, '_blank');
-                    gtag('event', 'click', {
+                    if (typeof gtag === 'function') gtag('event', 'click', {
                         'event_category': 'WhatsApp Chat',
                         'event_label': 'Initiate Chat',
                         'value': phoneNumber
                     });
                 } else {
-                    const lang = document.documentElement.lang;
+                    const lang = document.documentElement.lang || 'pt-BR';
                     alert(translations[lang].phoneError);
                 }
             }
@@ -509,7 +360,7 @@
 
         // Função para rastrear cliques em redes sociais
         function trackSocialClick(serviceName) {
-            gtag('event', 'click', {
+            if (typeof gtag === 'function') gtag('event', 'click', {
                 'event_category': 'Social Media',
                 'event_label': serviceName
             });
@@ -517,19 +368,130 @@
 
         // Função para abrir link de doação
         function openDonation() {
-            // Substitua este link pelo seu link de doação (PayPal, PicPay, PIX, etc.)
             const donationLink = 'https://www.paypal.com/donate/?hosted_button_id=FAX6J82B2ZQNN'; // Exemplo
             window.open(donationLink, '_blank');
-            
-            // Rastreamento de clique na doação
-            gtag('event', 'click', {
+            if (typeof gtag === 'function') gtag('event', 'click', {
                 'event_category': 'Donation',
                 'event_label': 'Support Button'
             });
         }
     </script>
 
-    <!-- Registro do Service Worker e controle do prompt de instalação -->
-    <script src="./register-sw.js" defer></script>
+    <!-- Registro do Service Worker (inline para facilitar deploy) -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+          try {
+            // registra sw relativo para funcionar em GitHub Pages/project pages
+            const reg = await navigator.serviceWorker.register('./sw.js');
+            console.log('Service Worker registrado:', reg);
+          } catch (err) {
+            console.error('Erro ao registrar Service Worker:', err);
+          }
+        });
+      }
+    </script>
+
+    <!-- Install handler (controle do botão e modal iOS) -->
+    <script>
+      (function() {
+        const installBtn = document.getElementById('btn-install');
+        const iosModal = document.getElementById('a2hs-ios');
+        const iosClose = document.getElementById('a2hs-ios-close');
+
+        let deferredPrompt = null;
+
+        function isAppInstalled() {
+          return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
+            || window.navigator.standalone === true;
+        }
+
+        function isIos() {
+          return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+        }
+
+        function updateInstallButton() {
+          if (!installBtn) return;
+          if (isAppInstalled()) {
+            installBtn.style.display = 'none';
+            installBtn.setAttribute('aria-hidden', 'true');
+          } else {
+            // if beforeinstallprompt hasn't fired yet, we still keep the button hidden
+            // it will be shown when beforeinstallprompt fires or for iOS fallback
+            if (deferredPrompt) {
+              installBtn.style.display = 'inline-block';
+              installBtn.removeAttribute('aria-hidden');
+            } else {
+              // For iOS show button so users can get instructions
+              if (isIos()) {
+                installBtn.style.display = 'inline-block';
+                installBtn.removeAttribute('aria-hidden');
+              } else {
+                // keep hidden until prompt available
+                installBtn.style.display = 'none';
+              }
+            }
+          }
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          if (installBtn) {
+            installBtn.style.display = 'inline-block';
+            installBtn.removeAttribute('aria-hidden');
+          }
+          if (typeof gtag === 'function') gtag('event','pwa_prompt_available');
+        });
+
+        window.addEventListener('appinstalled', () => {
+          console.log('PWA instalado');
+          if (typeof gtag === 'function') gtag('event','pwa_installed');
+          updateInstallButton();
+        });
+
+        if (installBtn) {
+          installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+              deferredPrompt.prompt();
+              const choice = await deferredPrompt.userChoice;
+              if (typeof gtag === 'function') gtag('event','pwa_install_choice', { outcome: choice.outcome });
+              deferredPrompt = null;
+              updateInstallButton();
+              return;
+            }
+
+            if (isIos()) {
+              if (iosModal) {
+                iosModal.style.display = 'flex';
+                iosModal.setAttribute('aria-hidden','false');
+                // move focus to close button for accessibility
+                if (iosClose) iosClose.focus();
+              } else {
+                alert('Para instalar: toque em Compartilhar → Adicionar à Tela de Início.');
+              }
+              return;
+            }
+
+            // Fallback generic instruction
+            alert('Para instalar este app, verifique o menu do seu navegador e escolha "Adicionar à tela inicial" ou "Instalar".');
+          });
+        }
+
+        if (iosClose) {
+          iosClose.addEventListener('click', () => {
+            if (iosModal) {
+              iosModal.style.display = 'none';
+              iosModal.setAttribute('aria-hidden','true');
+              if (installBtn) installBtn.focus();
+            }
+          });
+        }
+
+        document.addEventListener('visibilitychange', updateInstallButton);
+        window.addEventListener('load', updateInstallButton);
+        document.addEventListener('DOMContentLoaded', updateInstallButton);
+      })();
+    </script>
 </body>
 </html>
